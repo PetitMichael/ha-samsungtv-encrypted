@@ -564,15 +564,6 @@ class SamsungTVDevice(MediaPlayerEntity):
         if source_names:
             source_ids = self.SendSOAP(self._upnp_ports[1], self._upnp_paths[1], self._urns[1], 'GetSourceList', '', 'id')
             if source_ids:
-                sources_connected = self.SendSOAP(self._upnp_ports[1], self._upnp_paths[1], self._urns[1], 'GetSourceList', '', 'connected')
-                if sources_connected:
-                    del source_ids[0]
-                    j = 0;
-                    for i in range(len(sources_connected)):
-                        if sources_connected[i].lower() != 'yes':
-                            del source_names[i - j]
-                            del source_ids[i - j]
-                            j = j + 1
-                    sources = dict(zip(source_names, source_ids))
+                sources = dict(zip(source_names, source_ids))
         _LOGGER.debug('Sourcelist available is '.format(sources))
         return sources
